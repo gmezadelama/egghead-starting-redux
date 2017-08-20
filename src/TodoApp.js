@@ -4,6 +4,20 @@ import './TodoApp.css';
 
 class TodoList extends Component {
   nextTodoId = 0;
+  getVisibleTodos = (todos, filter) => {
+    switch (filter) {
+      case 'SHOW_ALL':
+        return todos;
+      case 'SHOW_COMPLETED':
+        return todos.filter(
+          t => t.completed
+        );
+      case 'SHOW_ACTIVE':
+        return todos.filter(
+          t => !t.completed
+        );
+    }
+  }
   todoOnClick = () => {
     this.props.store.dispatch({
       type: 'ADD_TODO',
@@ -19,6 +33,11 @@ class TodoList extends Component {
     });
   })
   render () {
+    const {
+      todos,
+      visibilityFilter
+    } = this.props;
+    const visibleTodos = this.getVisibleTodos(todos, visibilityFilter);
     return (
       <div>
         <input ref={node => { this.input = node }} />
@@ -26,7 +45,7 @@ class TodoList extends Component {
           Add Todo
         </button>
         <ul style={{maxWidth: '25%', marginLeft: '30%'}}>
-          {this.props.todos.map(todo =>
+          {visibleTodos.map(todo =>
             <li key={todo.id}
               onClick={this.toggleTask(todo.id).bind(this)}
               style={{ textDecoration: todo.completed ? 'line-through': 'none' }}>
@@ -34,6 +53,33 @@ class TodoList extends Component {
             </li>
           )}
         </ul>
+        <p>
+          Show:
+          {' '}
+          <FilterLink
+            filter='SHOW_ALL'
+            currentFilter={visibilityFilter}
+            store={this.props.store}
+          >
+            All
+          </FilterLink>
+          {', '}
+          <FilterLink
+            filter='SHOW_ACTIVE'
+            currentFilter={visibilityFilter}
+            store={this.props.store}
+          >
+            Active
+          </FilterLink>
+          {', '}
+          <FilterLink
+            filter='SHOW_COMPLETED'
+            currentFilter={visibilityFilter}
+            store={this.props.store}
+          >
+            Completed
+          </FilterLink>
+        </p>
       </div>
     )
   }
@@ -61,10 +107,34 @@ class TodoApp extends Component {
   render () {
     return (
       <TodoWrapperApp>
-        <TodoList {...this.props} />
+        <TodoList {...this.props.store.getState()} store={this.props.store} />
       </TodoWrapperApp>
     )
   }
 }
+
+const FilterLink = ({
+    filter,
+    currentFilter,
+    store,
+    children
+  }) => {
+    if (filter === currentFilter) {
+      return <span>{children}</span>;
+    }
+    return (
+      <a href='#'
+         onClick={e => {
+           e.preventDefault();
+           store.dispatch({
+             type: 'SET_VISIBILITY_FILTER',
+             filter
+           });
+         }}
+      >
+        {children}
+      </a>
+    );
+  };
 
 export default TodoApp;
