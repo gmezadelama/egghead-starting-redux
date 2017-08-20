@@ -12,6 +12,12 @@ class TodoList extends Component {
     });
     this.input.value = '';
   }
+  toggleTask = (todoId) => (() => {
+    this.props.store.dispatch({
+      type: 'TOGGLE_TODO',
+      id: todoId
+    });
+  })
   render () {
     return (
       <div>
@@ -21,7 +27,9 @@ class TodoList extends Component {
         </button>
         <ul>
           {this.props.todos.map(todo =>
-            <li key={todo.id}>
+            <li key={todo.id}
+              onClick={this.toggleTask(todo.id).bind(this)}
+              style={{ textDecoration: todo.completed ? 'line-through': 'none' }}>
               {todo.text}
             </li>
           )}
