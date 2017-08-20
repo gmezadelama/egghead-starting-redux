@@ -25,7 +25,7 @@ class TodoList extends Component {
         <button onClick={this.todoOnClick.bind(this)}>
           Add Todo
         </button>
-        <ul>
+        <ul style={{maxWidth: '25%', marginLeft: '30%'}}>
           {this.props.todos.map(todo =>
             <li key={todo.id}
               onClick={this.toggleTask(todo.id).bind(this)}
