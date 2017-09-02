@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './TodoApp.css';
-import {
-  AddTodo,
-  TodoList,
-  Footer } from './components/PresentationalComponents'
+import AddTodo from './components/AddTodo'
+import Footer from './components/Footer'
 import VisibleTodoList from './containers/VisibleTodoList'
 
 class TodoMain extends Component {
