@@ -1,28 +1,5 @@
 import React from 'react'
-
-export const FilterLink = ({
-    filter,
-    currentFilter,
-    store,
-    children
-  }) => {
-  if (filter === currentFilter) {
-    return <span>{children}</span>;
-  }
-  return (
-    <a href='#'
-       onClick={e => {
-         e.preventDefault();
-         store.dispatch({
-           type: 'SET_VISIBILITY_FILTER',
-           filter
-         });
-       }}
-    >
-      {children}
-    </a>
-  );
-};
+import FilterLink from '../containers/FilterLink'
 
 export const Todo = ({
   onClick,
@@ -68,14 +45,13 @@ export const AddTodo = ({ todoOnClick }) => {
   )
 }
 
-export const Footer = ({ store, visibilityFilter }) => {
+export const Footer = ({ store }) => {
   return (
     <p>
       Show:
       {' '}
       <FilterLink
         filter='SHOW_ALL'
-        currentFilter={visibilityFilter}
         store={store}
       >
         All
@@ -83,7 +59,6 @@ export const Footer = ({ store, visibilityFilter }) => {
       {', '}
       <FilterLink
         filter='SHOW_ACTIVE'
-        currentFilter={visibilityFilter}
         store={store}
       >
         Active
@@ -91,7 +66,6 @@ export const Footer = ({ store, visibilityFilter }) => {
       {', '}
       <FilterLink
         filter='SHOW_COMPLETED'
-        currentFilter={visibilityFilter}
         store={store}
       >
         Completed
