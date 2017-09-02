@@ -6,8 +6,6 @@ import Footer from './components/Footer'
 import VisibleTodoList from './containers/VisibleTodoList'
 
 class TodoMain extends Component {
-  nextTodoId = 0;
-  getNextTodoId = () => (this.nextTodoId++)
   render () {
     const {
       todos,
@@ -15,9 +13,7 @@ class TodoMain extends Component {
     } = this.props;
     return (
       <div>
-        <AddTodo
-          getNextTodoId = { this.getNextTodoId }
-        />
+        <AddTodo />
         <VisibleTodoList />
         <Footer
           visibilityFilter={ visibilityFilter }
