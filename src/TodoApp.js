@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './TodoApp.css';
-import { FilterLink, Todo,
-      AddTodo, TodoList, Footer } from './components/PresentationalComponents'
+import {
+  AddTodo,
+  TodoList,
+  Footer } from './components/PresentationalComponents'
 
 class TodoMain extends Component {
   nextTodoId = 0;
