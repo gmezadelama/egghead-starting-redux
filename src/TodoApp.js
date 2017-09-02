@@ -5,49 +5,23 @@ import {
   AddTodo,
   TodoList,
   Footer } from './components/PresentationalComponents'
+import VisibleTodoList from './containers/VisibleTodoList'
 
 class TodoMain extends Component {
   nextTodoId = 0;
-  getVisibleTodos = (todos, filter) => {
-    switch (filter) {
-      case 'SHOW_ALL':
-        return todos;
-      case 'SHOW_COMPLETED':
-        return todos.filter(
-          t => t.completed
-        );
-      case 'SHOW_ACTIVE':
-        return todos.filter(
-          t => !t.completed
-        );
-    }
-  }
-  todoOnClick = (inputValue) => {
-    this.props.store.dispatch({
-      type: 'ADD_TODO',
-      text: inputValue,
-      id: this.nextTodoId++
-    });
-  }
-  toggleTask = (todoId) => {
-    this.props.store.dispatch({
-      type: 'TOGGLE_TODO',
-      id: todoId
-    });
-  }
+  getNextTodoId = () => (this.nextTodoId++)
   render () {
     const {
       todos,
       visibilityFilter
     } = this.props;
-    const visibleTodos = this.getVisibleTodos(todos, visibilityFilter);
     return (
       <div>
-        <AddTodo todoOnClick={ this.todoOnClick } />
-        <TodoList
-          visibleTodos={ visibleTodos }
-          toggleTask={ this.toggleTask }
+        <AddTodo
+          store={ this.props.store }
+          getNextTodoId = { this.getNextTodoId }
         />
+        <VisibleTodoList store={ this.props.store } />
         <Footer
           store={ this.props.store }
           visibilityFilter={ visibilityFilter }

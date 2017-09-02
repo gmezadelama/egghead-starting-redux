@@ -1,38 +1,14 @@
 import React from 'react'
 import FilterLink from '../containers/FilterLink'
 
-export const Todo = ({
-  onClick,
-  completed,
-  text
-}) => (
-  <li
-    onClick={ onClick }
-    style={{ textDecoration: completed ? 'line-through': 'none' }}>
-    { text }
-  </li>
-)
-
-export const TodoList = ({
-  visibleTodos,
-  toggleTask
-}) => (
-  <ul style={{maxWidth: '25%', marginLeft: '30%'}}>
-    {visibleTodos.map(todo => (
-        <Todo
-          onClick={ () => {toggleTask(todo.id)} }
-          completed={todo.completed}
-          text={todo.text}
-        />
-      )
-    )}
-  </ul>
-)
-
-export const AddTodo = ({ todoOnClick }) => {
+export const AddTodo = ({ store, getNextTodoId }) => {
   let input
   let onClick = () => {
-    todoOnClick(input.value);
+    store.dispatch({
+      type: 'ADD_TODO',
+      text: input.value,
+      id: getNextTodoId()
+    });
     input.value = ''
   }
   return (
