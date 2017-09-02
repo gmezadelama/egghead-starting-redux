@@ -22,7 +22,8 @@ const Link = ({
 
 export default class FilterLink extends Component {
   componentDidMount () {
-    this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate())
+    const { store } = this.context
+    this.unsubscribe = store.subscribe(() => this.forceUpdate())
   }
 
   componentWillUnmount () {
@@ -30,8 +31,8 @@ export default class FilterLink extends Component {
   }
 
   render () {
+    const { store } = this.context
     const props = this.props
-    const store = props.store
     const state = store.getState()
     return (
       <Link
@@ -50,4 +51,8 @@ export default class FilterLink extends Component {
       </Link>
     )
   }
+}
+
+FilterLink.contextTypes = {
+  store: React.PropTypes.object
 }

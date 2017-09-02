@@ -18,12 +18,10 @@ class TodoMain extends Component {
     return (
       <div>
         <AddTodo
-          store={ this.props.store }
           getNextTodoId = { this.getNextTodoId }
         />
-        <VisibleTodoList store={ this.props.store } />
+        <VisibleTodoList />
         <Footer
-          store={ this.props.store }
           visibilityFilter={ visibilityFilter }
         />
       </div>
@@ -53,7 +51,7 @@ class TodoApp extends Component {
   render () {
     return (
       <TodoWrapperApp>
-        <TodoMain {...this.props.store.getState()} store={this.props.store} />
+        <TodoMain />
       </TodoWrapperApp>
     )
   }

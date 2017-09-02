@@ -30,7 +30,8 @@ export const TodoList = ({
 
 export default class VisibleTodoList extends Component {
   componentDidMount() {
-    this.unsubscribe = this.props.store.subscribe(() =>
+    const { store } = this.context
+    this.unsubscribe = store.subscribe(() =>
       this.forceUpdate()
     )
   }
@@ -40,7 +41,8 @@ export default class VisibleTodoList extends Component {
   }
 
   toggleTask = (todoId) => {
-    this.props.store.dispatch({
+    const { store } = this.context
+    store.dispatch({
       type: 'TOGGLE_TODO',
       id: todoId
     });
@@ -62,8 +64,7 @@ export default class VisibleTodoList extends Component {
   }
 
   render () {
-    const props = this.props
-    const store = props.store
+    const { store } = this.context
     const state = store.getState()
     let visibleTodos = this.getVisibleTodos(state.todos, state.visibilityFilter)
     return (
@@ -73,4 +74,8 @@ export default class VisibleTodoList extends Component {
       />
     )
   }
+}
+
+VisibleTodoList.contextTypes = {
+  store: React.PropTypes.object
 }
