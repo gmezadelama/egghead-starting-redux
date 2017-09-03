@@ -35,13 +35,13 @@ class VisibleTodoList extends Component {
 
   getVisibleTodos = (todos, filter) => {
     switch (filter) {
-      case 'SHOW_ALL':
+      case 'all':
         return todos;
-      case 'SHOW_COMPLETED':
+      case 'completed':
         return todos.filter(
           t => t.completed
         );
-      case 'SHOW_ACTIVE':
+      case 'active':
         return todos.filter(
           t => !t.completed
         );
@@ -68,9 +68,9 @@ VisibleTodoList.contextTypes = {
   store: React.PropTypes.object
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   todos: state.todos,
-  visibilityFilter: state.visibilityFilter
+  visibilityFilter: ownProps.filter
 })
 
 const mapDispatchToProps = (dispatch) => ({
