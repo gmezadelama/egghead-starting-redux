@@ -74,12 +74,6 @@ const mapStateToProps = (state, { match }) => ({
   visibilityFilter: match.params.filter || 'all'
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  toggleTask (todoId) {
-    dispatch(toggleTodo(todoId));
-  }
-})
-
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(VisibleTodoList)
+  connect(mapStateToProps, { toggleTask: toggleTodo })(VisibleTodoList)
 )

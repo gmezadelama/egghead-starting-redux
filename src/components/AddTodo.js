@@ -18,10 +18,4 @@ const AddTodo = ({ getNextTodoId, addTodo }) => {
   )
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  addTodo (inputValue) {
-    dispatch(addTodo(inputValue));
-  }
-})
-
-export default connect(null, mapDispatchToProps)(AddTodo)
+export default connect(null, { addTodo })(AddTodo)
