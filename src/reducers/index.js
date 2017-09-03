@@ -38,21 +38,25 @@ const todos = (state = [], action) => {
   }
 };
 
-const visibilityFilter = (
-  state = 'SHOW_ALL',
-  action
-) => {
-  switch (action.type) {
-    case 'SET_VISIBILITY_FILTER':
-      return action.filter;
-    default:
-      return state;
-  }
-};
-
 const todoApp = combineReducers({
-  todos,
-  visibilityFilter
+  todos
 })
 
 export default todoApp
+
+export const getVisibleTodos = (state, filter) => {
+  switch (filter) {
+    case 'all':
+      return state.todos;
+    case 'completed':
+      return state.todos.filter(
+        t => t.completed
+      );
+    case 'active':
+      return state.todos.filter(
+        t => !t.completed
+      );
+    default:
+      throw new Error(`Unknown filter: ${filter}`)
+  }
+}
