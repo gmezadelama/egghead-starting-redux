@@ -5,9 +5,19 @@ import './index.css';
 import TodoApp from './TodoApp';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore } from 'redux'
-import reducers from './reducers'
+import todoAppReducers from './reducers'
+import { loadState, saveState } from './store/localStorage'
+import throttle from 'lodash/throttle'
 
-const store = createStore(reducers)
+const persistedState = loadState()
+
+const store = createStore(todoAppReducers, persistedState)
+
+store.subscribe(throttle(() => {
+  saveState({
+    todos: store.getState().todos
+  })
+}, 1000))
 
 const render = () => {
 ReactDOM.render(

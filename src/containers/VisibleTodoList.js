@@ -21,6 +21,7 @@ export const TodoList = ({
   <ul style={{maxWidth: '25%', marginLeft: '30%'}}>
     {visibleTodos.map(todo => (
         <Todo
+          key={ todo.id }
           onClick={ () => {toggleTask(todo.id)} }
           completed={todo.completed}
           text={todo.text}
