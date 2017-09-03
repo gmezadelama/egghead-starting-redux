@@ -9,13 +9,12 @@ class TodoMain extends Component {
   render () {
     const {
       todos,
-      visibilityFilter,
-      match: { params }
+      visibilityFilter
     } = this.props;
     return (
       <div>
         <AddTodo />
-        <VisibleTodoList filter={ params.filter || 'all' } />
+        <VisibleTodoList />
         <Footer
           visibilityFilter={ visibilityFilter }
         />

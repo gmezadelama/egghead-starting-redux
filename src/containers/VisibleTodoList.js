@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import { toggleTodo } from '../actions'
 
 export const Todo = ({
@@ -68,9 +69,9 @@ VisibleTodoList.contextTypes = {
   store: React.PropTypes.object
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, { match }) => ({
   todos: state.todos,
-  visibilityFilter: ownProps.filter
+  visibilityFilter: match.params.filter || 'all'
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -79,4 +80,6 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(VisibleTodoList)
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(VisibleTodoList)
+)
