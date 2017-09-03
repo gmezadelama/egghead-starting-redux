@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addTodo } from '../actions'
 
-const AddTodo = ({ getNextTodoId, dispatch }) => {
+const AddTodo = ({ getNextTodoId, addTodo }) => {
   let input
   let onClick = () => {
-    dispatch(addTodo(input.value));
+    addTodo(input.value);
     input.value = ''
   }
   return (
@@ -18,4 +18,10 @@ const AddTodo = ({ getNextTodoId, dispatch }) => {
   )
 }
 
-export default connect()(AddTodo)
+const mapDispatchToProps = (dispatch) => ({
+  addTodo (inputValue) {
+    dispatch(addTodo(inputValue));
+  }
+})
+
+export default connect(null, mapDispatchToProps)(AddTodo)

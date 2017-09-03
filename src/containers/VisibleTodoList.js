@@ -67,19 +67,15 @@ VisibleTodoList.contextTypes = {
   store: React.PropTypes.object
 }
 
-const mapStateToProps = (state) => {
-  return {
-    todos: state.todos,
-    visibilityFilter: state.visibilityFilter
-  }
-}
+const mapStateToProps = (state) => ({
+  todos: state.todos,
+  visibilityFilter: state.visibilityFilter
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    toggleTask: (todoId) => {
-      dispatch(toggleTodo(todoId));
-    }
+const mapDispatchToProps = (dispatch) => ({
+  toggleTask (todoId) {
+    dispatch(toggleTodo(todoId));
   }
-}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(VisibleTodoList)
