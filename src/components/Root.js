@@ -1,17 +1,20 @@
 import React from 'react';
 import { Provider } from 'react-redux'
-import { Router, Route } from 'react-router'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import TodoApp from '../TodoApp';
 import '../index.css';
 
-const browserHistory = createBrowserHistory()
-
 const Root = ({ store }) => (
   <Provider store = { store }>
-    <Router history={ browserHistory }>
-      <Route path="/" component={ TodoApp } />
-    </Router>
+    <BrowserRouter>
+      <div>
+        <Switch>
+          <Route path="/:filter" component={ TodoApp } />
+          <Route path="/" component={ TodoApp } />
+        </Switch>
+      </div>
+    </BrowserRouter>
   </Provider>
 )
 
